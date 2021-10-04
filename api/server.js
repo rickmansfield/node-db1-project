@@ -6,18 +6,18 @@ const server = express();
 
 server.use(express.json());
 
-server.use("/api/accounts", AccountsRouter)
+server.use("/api/accounts", AccountsRouter);
 
 server.get('/', (req, res) => {
     res.json({ message: 'Api is working add a route to see more' });
     console.log('api is working');
-})
+});
 
 server.use("*", (req,res)=>{
     res.status(404).json({
         message: 'Bad route try another'
     })
-})
+});
 
 
 server.use((err, req, res, next) => { // eslint-disable-line
@@ -25,6 +25,6 @@ server.use((err, req, res, next) => { // eslint-disable-line
         message: err.message,
         stack: err.stack,
     })
-})
+});
 
 module.exports = server;
