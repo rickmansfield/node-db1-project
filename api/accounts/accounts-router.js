@@ -1,29 +1,26 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
-const Accounts = require('./accounts-model')
+const Accounts = require('./accounts-model');
 const {
   checkAccountPayload,
   checkAccountNameUnique,
   checkAccountId
-} = require('./accounts-middleware')
+} = require('./accounts-middleware');
 
-router.get('/', (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
-    res.json('get accounts')
+    const accountsArray = await Accounts.getAll()
+    res.json(accountsArray)
     // throw new Error("YIPES")//first test
     //res.json([{}, {}])//secton test
   } catch (err) {
     next(err)
   }
+});
 
-})
-
-router.get('/:id', checkAccountId, (req, res, next) => {
-  try { res.json('get accounts by id') } catch (err) {
-    next(err)
-  }
-  // DO YOUR MAGIC
-})
+router.get('/:id', checkAccountId, (req, res) => {
+    res.json(req.account)
+});
 
 router.post(
   '/',

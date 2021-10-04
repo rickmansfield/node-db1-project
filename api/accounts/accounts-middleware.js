@@ -1,26 +1,36 @@
 const Accounts = require ('./accounts-model')
 
 function checkAccountPayload (req, res, next) {
-  // DO YOUR MAGIC
+  console.log('checkAccountPayload');
+  const { name, budget } = req.body
+  if(name && budget){
+    next();
+  }else{
+    res.status(400).json({ 
+      message: "name and budget are required"
+    })
+  }
 }
 
 function checkAccountNameUnique (req, res, next) {
-  // DO YOUR MAGIC
+  console.log('checkAccountNameUnique middleware');
+  next()
 }
 
-function checkAccountId (req, res, next) {
-  const  { id } = req.params
-  Accounts.get(id)
-  .then((accounts) => {
-    if(accounts){
-      req.accounts = accounts
+async function checkAccountId (req, res, next) {
+  console.log('checkAccountId middleware');
+  try{
+    const account = await Accounts.getById(req.params.id)
+    if(account){
+      req.account = account
       next()
-    } else {
-      res.status(404).json({ 
-        message: "account not found"
-      })
     }
-  })
+    else{
+      res.status(404).json({message:"account not found"})
+    } 
+  }catch(err){
+    next(err)
+  }
 }
 
 module.exports = {checkAccountPayload, checkAccountNameUnique, checkAccountId}
