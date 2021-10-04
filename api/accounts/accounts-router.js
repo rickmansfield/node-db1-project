@@ -1,7 +1,9 @@
-const router = require('express').Router()
+const express = require('express')
+const router = express.Router();
+const Accounts = require('./accounts-model')
 
 router.get('/', (req, res, next) => {
-  // DO YOUR MAGIC
+  
 })
 
 router.get('/:id', (req, res, next) => {
