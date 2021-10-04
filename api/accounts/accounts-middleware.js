@@ -22,11 +22,22 @@ function checkAccountPayload(req, res, next) {
   }
 }
 
-function checkAccountNameUnique(req, res, next) {
+async function checkAccountNameUnique(req, res, next) {
   console.log('checkAccountNameUnique middleware');
   const { name } = req.body
-  if(name === name)
-  next()
+  try {
+    const accountName = await Accounts.getByName(name.trim())
+    if(accountName) {
+      res.status(400).json({
+        message:"that name is taken"
+      })
+    } else {
+      next()
+    }
+  } catch(err){
+    next(err)
+  }
+
 }
 
 async function checkAccountId(req, res, next) {

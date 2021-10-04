@@ -7,22 +7,32 @@ const getAll = () => {
   //.then.catch or async with try/await/catch 
 }
 
+const getByName = name => {
+  return db("accounts").where("name", name).first()
+}
+
 const getById = id => {
   //SELECT * FROM accounts WHERE id = some number;
   return db("accounts").where("id", id).first()
 }
 
-const create = account => {
-  return " wired"
-}
+const create = async account => {
+  //INSERT INTO accounts (name, budget) values ('somename', 'budget as a number');
+  const [id] = await db('accounts').insert(account);
+  return getById(id);
+};
 
 const updateById = (id, account) => {
-  return " wired"
+  return db('accounts').where('id', id).update(account)
+  .then(() => {
+    return getById(id)
+  })
 }
 
 const deleteById = id => {
-  return " wired"
-}
+  //DELETE FROM accounts WHERE id='some number';
+  return db('accounts').where('id', id).del()
+}  //this  part resolves to the number of deteled records
 
 module.exports = {
   getAll,
@@ -30,4 +40,5 @@ module.exports = {
   create,
   updateById,
   deleteById,
+  getByName
 }
