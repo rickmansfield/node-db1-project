@@ -8,14 +8,14 @@ server.use(express.json());
 
 server.use("/api/accounts", AccountsRouter)
 
-// server.get('/', (req, res) => {
-//     res.json({ message: 'Api is working add a route to see more' });
-//     console.log('api is working');
-// })
+server.get('/', (req, res) => {
+    res.json({ message: 'Api is working add a route to see more' });
+    console.log('api is working');
+})
 
 server.use("*", (req,res)=>{
     res.status(404).json({
-        message: 'not found'
+        message: 'Bad route try another'
     })
 })
 
