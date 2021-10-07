@@ -1,5 +1,20 @@
 # Node DB1 Project Starter Code
 
+- [Node DB1 Project Starter Code](#node-db1-project-starter-code)
+  - [Introduction](#introduction)
+  - [Instructions](#instructions)
+    - [Task 1: Project Setup and Submission](#task-1-project-setup-and-submission)
+    - [Task 2: Minimum Viable Product](#task-2-minimum-viable-product)
+    - [2.1 Write Basic SQL Queries](#21-write-basic-sql-queries)
+    - [2.2 Build a RESTful API for the Accounts Resource](#22-build-a-restful-api-for-the-accounts-resource)
+      - [Accounts Schema](#accounts-schema)
+      - [Write Model Functions](#write-model-functions)
+      - [Write Middleware](#write-middleware)
+    - [Write Accounts API](#write-accounts-api)
+      - [Important Notes](#important-notes)
+    - [Task 3: Stretch Problems](#task-3-stretch-problems)
+  - [Kenex](#kenex)
+
 ## Introduction
 
 - Relational Databases
@@ -120,3 +135,14 @@ The following exercises **require research**, the concepts needed to complete th
     sortdir: 'desc'
   }
   ```
+## [Kenex](https://knexjs.org/)
+``` javascript
+// Returns [1] in "mysql", "sqlite", "oracle"; [] in "postgresql" unless the 'returning' parameter is set.
+//kenex.js presents it this way
+knex('books').insert({title: 'Slaughterhouse Five'})
+//and we replace kenex to actually write it this way
+db('books').insert({title: 'Slaughterhouse Five'})//assuming you use db for your database. 
+//see db-donfig.js and accounts-model.js for example
+//Outputs:
+insert into `books` (`title`) values ('Slaughterhouse Five')
+```
